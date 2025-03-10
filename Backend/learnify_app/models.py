@@ -95,6 +95,15 @@ class Module(models.Model):
     
     class Meta:
         verbose_name = "Module"
+
+class Lesson(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name="lessons")
+    title = models.CharField(max_length=255)
+    content= models.TextField()
+    video_url = models.URLField(blank=True, null=True)
+    position = models.IntegerField()
+
     
 
 class Cart(models.Model):
@@ -118,7 +127,7 @@ class Review(models.Model):
 class LessonProgress(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="progress")
-    course = models.OneToOneField(Course, on_delete=models)
+    course = models.OneToOneField(Course, on_delete=models.CASCADE)
     lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE)
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name="progress")
     is_completed = models.BooleanField(default=False)
