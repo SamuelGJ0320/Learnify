@@ -87,6 +87,15 @@ class Course(models.Model):
     class Meta:
         verbose_name = "Course"
 
+class Module(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="modules")
+    title = models.CharField(max_length=255)
+    position = models.IntegerField()
+    
+    class Meta:
+        verbose_name = "Module"
+    
 
 class Cart(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
