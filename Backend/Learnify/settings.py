@@ -9,12 +9,15 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
+from dotenv import load_dotenv
+from urllib.parse import urlparse
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -85,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     
     
 ]
@@ -109,16 +113,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Learnify.wsgi.application'
 
-
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': 5432,
     }
 }
+
 
 from datetime import timedelta
 
@@ -130,7 +139,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
     'USER_ID_FIELD': 'userId',
     'USER_ID_CLAIM': 'user_id',
-    'SIGNING_KEY': JWT_SECRET_KEY
+    'SIGNING_KEY': os.getenv("JWT_SECRET_KEY"),
 }
 
 
