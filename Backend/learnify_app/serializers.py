@@ -8,6 +8,7 @@ class UserSerializer(ModelSerializer):
         fields = [
             "id",
             "email",
+            "username",
             "first_name",
             "last_name",
             "profile_picture",
@@ -21,6 +22,7 @@ class UserSerializer(ModelSerializer):
         """Create a new user with encrypted password"""
         user = User.objects.create_user(
             email=validated_data["email"],
+            username=validated_data["username"],
             first_name=validated_data["first_name"],
             last_name=validated_data["last_name"],
             password=validated_data["password"],

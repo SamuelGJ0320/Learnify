@@ -8,13 +8,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None, role="student"):
+    def create_user(self,username,  email, first_name, last_name, password=None, role="student"):
         """Creates and saves a regular user"""
         if not email:
             raise ValueError("Users must have an email address")
         
         email = self.normalize_email(email)
         user = self.model(
+            username=username,
             email=email,
             first_name=first_name,
             last_name=last_name,
@@ -24,10 +25,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, password):
+    def create_superuser(self, email, username, first_name, last_name, password):
         """Creates and saves a superuser"""
         user = self.create_user(
             email=email,
+            username=username,
             first_name=first_name,
             last_name=last_name,
             password=password,
@@ -41,6 +43,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -61,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "username"]
 
     class Meta:
         verbose_name = "User"
