@@ -70,7 +70,7 @@ class Order(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     total_price = models.DecimalField(max_digits=15, decimal_places=2)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=15, choices=[("pending", "Pending"), ("completed", "Completed"), ("cancelled", "Cancelled")])
     course = models.ManyToManyField("Course", related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -81,7 +81,7 @@ class Course(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=15, decimal_places=2)
     category = models.CharField(max_length=50)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=15, choices=[("draft", "Draft"), ("published", "Published"), ("archived", "Archived")])
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -115,3 +115,14 @@ class Review(models.Model):
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
+class LessonProgress(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="progress")
+    course = models.OneToOneField(Course, on_delete=models)
+    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name="progress")
+    is_completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Lesson Progress"
