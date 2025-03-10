@@ -37,6 +37,10 @@ class CourseSerializer(ModelSerializer):
             "description",
             "instructor",
             "created_at",
+            "category",
+            "price",
+            "status",
+            
         ]
 
     def create(self, validated_data):
@@ -47,7 +51,7 @@ class CourseSerializer(ModelSerializer):
             instructor=validated_data["instructor"],
             category=validated_data["category"],
             price=validated_data["price"],
-            
+
         )
         return course
         
