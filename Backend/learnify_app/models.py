@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import uuid
 
+
+# Create your models here.
+
 class UserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None, role="student"):
         """Creates and saves a regular user"""
@@ -61,3 +64,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         verbose_name = "User"
+
+class Order(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=15, decimal_places=2)
+    status = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+
+
+  
