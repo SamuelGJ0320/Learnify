@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 from urllib.parse import urlparse
 from pathlib import Path
 
@@ -80,7 +81,12 @@ SITE_ID = 1
 REST_USE_JWT = True #Use Json Web Tokens    
 
 MIDDLEWARE = [
+
+    #THIRD PARTY
     'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,7 +94,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+ 
     
     
 ]
@@ -129,7 +135,7 @@ DATABASES = {
 }
 
 
-from datetime import timedelta
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
@@ -150,7 +156,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 AUTH_USER_MODEL = 'learnify_app.User'
 
 #DEFINE CUSTOM SERIALIZER FOR USER MODEL
-
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'learnify_app.serializers.UserSerializer',
 }
@@ -168,7 +173,6 @@ REST_FRAMEWORK = {
     
 }
 
-ROOT_URLCONF = 'Learnify.urls'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
