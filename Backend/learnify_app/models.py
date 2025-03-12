@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name", "username"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "username", "password"]
 
     class Meta:
         verbose_name = "User"
@@ -112,7 +112,7 @@ class Lesson(models.Model):
 class Cart(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="cart")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    courses = models.ForeignKey(Course, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
