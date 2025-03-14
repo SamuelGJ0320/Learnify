@@ -56,11 +56,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     
-    #Local  
-    'learnify_app',
+    #Local
     'auth_users',
     'manage_courses',
     'courses_gateway',
+    'courses_interaction',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
