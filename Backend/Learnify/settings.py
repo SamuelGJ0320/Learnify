@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'learnify_app',
     'auth_users',
     'manage_courses',
+    'courses_gateway',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
