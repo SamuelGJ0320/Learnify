@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     #Local  
     'learnify_app',
     'auth_users',
+    'manage_courses',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -158,7 +159,7 @@ AUTH_USER_MODEL = 'auth_users.User'
 
 #DEFINE CUSTOM SERIALIZER FOR USER MODEL
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'learnify_app.serializers.UserSerializer',
+    'USER_DETAILS_SERIALIZER': 'auth_users.serializers.UserSerializer',
 }
 
 # AUTHENTICACTION CLASSES
