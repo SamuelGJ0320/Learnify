@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     
     #Local  
     'learnify_app',
+    'auth_users',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
