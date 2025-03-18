@@ -1,9 +1,9 @@
-import React from 'react'
-import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
+import React from "react";
+import { cn } from "@/utils/cn";
+import { cva } from "class-variance-authority";
 
 const blurVariants = cva(
-  "absolute inset-0 blur bg-white opacity-40 -z-10 group-hover:opacity-60  transition-opacity duration-400",
+  "absolute inset-0 blur bg-white opacity-40 -z-10 group-hover:opacity-60  transition-opacity duration-500",
   {
     variants: {
       size: {
@@ -19,13 +19,13 @@ const blurVariants = cva(
   }
 );
 
-function BackgroundBlur({ children, className='', color='', size='sm' }) {
+function BackgroundBlur({ children, className = "", color = "", size = "sm" }) {
   return (
     <div className={`relative ${className} group`}>
       {children}
-      <div className={cn(blurVariants({size}), color)}></div>
+      <div className={cn(blurVariants({ size }), color)}></div>
     </div>
   );
 }
 
-export default BackgroundBlur
+export default BackgroundBlur;

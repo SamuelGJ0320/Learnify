@@ -29,7 +29,7 @@ function CourseCard({ course }) {
     >
       <Card
         className={
-          "flex-row justify-start gap-0  dark:bg-transparent p-0 overflow-clip border-2 bg-white min-h-72"
+          "flex-row justify-start gap-0  dark:bg-transparent p-0 overflow-clip border-2 bg-white h-72"
         }
       >
         <div className="relative w-2/3 h-">
@@ -44,17 +44,23 @@ function CourseCard({ course }) {
             }}
           />
         </div>
-        <div className="w-full flex flex-col justify-around px-6">
+        <div className="w-full flex flex-col justify-between p-6">
           <CardHeader className={"flex flex-col items-start p-0"}>
-            <CardTitle className={"text-xl"}>{course.title}</CardTitle>
-            <CardDescription className={"text-lg"}>
-              {course.description}
+            <CardTitle className={"text-xl"}>
+              <h1>{course.title}</h1>
+            </CardTitle>
+            <CardDescription className={"text-lg "}>
+              <p className="overflow-hidden text-ellipsis">
+                {course.description}
+              </p>
             </CardDescription>
           </CardHeader>
           <CardFooter
-            className={"flex flex-col justify-between lg:flex-row lg:items-end"}
+            className={
+              "flex flex-col justify-between p-0 lg:flex-row lg:items-end"
+            }
           >
-            <CourseDetails course={course}/>
+            <CourseDetails course={course} />
             <div className="flex gap-4">
               <Button size={"xl"}>{course.price.toFixed(2)} USD</Button>
               <BackgroundBlur

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import Background from "@/components/BackgroundImage";
 import homeBackground from "@public/home-background.svg";
 import TagList from "@/components/TagList";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -22,7 +23,7 @@ export default function Home() {
               <h1 className="text-6xl font-bold w-fit">
                 La Escuela De Tecnologia Enfocada En Ti
               </h1>
-              <p className="w-full font-thin text-2xl">
+              <p className="w-full  text-2xl">
                 Figma helps design and development <br /> teams build great
                 products, <strong>Together.</strong>
               </p>
@@ -41,8 +42,9 @@ export default function Home() {
             </div>
           </main>
           <footer className="row-start-3 flex flex-wrap items-center justify-center">
-            <TagList tags={homeTags
-            } />
+            <Link href="/courses">
+             <TagList tags={homeTags} />
+            </Link>
           </footer>
         </div>
 
