@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
-from auth_users.models import User, Avg
+from auth_users.models import User
+from django.db.models import Avg
 
 class Course(models.Model):
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
