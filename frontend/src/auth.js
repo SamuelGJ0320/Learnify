@@ -1,0 +1,113 @@
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import axios from "axios";
+import { isJwtExpired } from "./lib/utils/jwt";
+import { refreshToken } from "./lib/utils/auth-utils";
+import { makeUrl } from "./lib/utils/url";
+
+const options = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
+  secret: process.env.SESSION_SECRET,
+  debug: process.env.NODE_ENV === "development",
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account.provider === "google") {
+        const { access_token, id_token } = account;
+
+        try {
+          console.log("trying to login");
+          console.log(
+            "URL",
+            makeUrl(
+              process.env.BACKEND_API_BASE || "http://127.0.0.1:8000/api",
+              "social",
+              "login",
+              "google"
+            )
+          );
+          const response = await axios.post(
+            makeUrl(
+              process.env.BACKEND_API_BASE || "http://127.0.0.1:8000/api",
+              "social",
+              "login",
+              "google"
+            ),
+            {
+              access_token,
+              id_token,
+            }
+          );
+
+          const accessToken = response.data.access_token;
+          const refreshToken = response.data.refresh_token;
+          console.log(user);
+          user.accessToken = accessToken;
+          user.refreshToken = refreshToken;
+
+          return true;
+        } catch (error) {
+          console.log("error", error);
+          return false;
+        }
+      }
+      return false;
+    },
+
+    async jwt({ token = {}, user }) {
+      console.log("jwt -> ", token, user);
+      // Initial sign in
+
+      if (user) {
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
+        token.iat = Math.floor(Date.now() / 1000);
+        token.exp = Math.floor(Date.now() / 1000 + 2 * 60 * 60);
+        return token;
+      }
+
+      // Check if token is expired and needs refreshing
+      if (token.accessToken && isJwtExpired(token.accessToken)) {
+        try {
+          const [newAccessToken, newRefreshToken] = await refreshToken(
+            token.refreshToken
+          );
+
+          if (newAccessToken && newRefreshToken) {
+            token.accessToken = newAccessToken;
+            token.refreshToken = newRefreshToken;
+            token.iat = Math.floor(Date.now() / 1000);
+            token.exp = Math.floor(Date.now() / 1000 + 2 * 60 * 60);
+            return token;
+          }
+        } catch (error) {
+          console.log("Error refreshing token:", error);
+        }
+
+        // Unable to refresh tokens, invalidate the session
+        return {
+          ...token,
+          exp: 0,
+        };
+      }
+
+      // Token is still valid
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
+};
+
+export const { auth, handlers, signIn, signOut } = NextAuth(options);
