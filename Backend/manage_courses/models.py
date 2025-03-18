@@ -10,8 +10,8 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=15, decimal_places=2)
     category = models.CharField(max_length=50)
     status = models.CharField(max_length=15, choices=[("draft", "Draft"), ("published", "Published"), ("archived", "Archived")])
-    estimated_duration = models.IntegerField()
-    difficulty = models.CharField(max_length=20, choices=[("beginner", "Beginner"), ("intermediate", "Intermediate"), ("advanced", "Advanced")])
+    estimated_duration = models.IntegerField(default=0)
+    difficulty = models.CharField(max_length=20, choices=[("beginner", "Beginner"), ("intermediate", "Intermediate"), ("advanced", "Advanced")], default='beginner')
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
