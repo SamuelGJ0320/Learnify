@@ -1,16 +1,13 @@
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import Google from "next-auth/providers/google";
 import axios from "axios";
-import { isJwtExpired } from "./lib/utils/jwt";
-import { refreshToken } from "./lib/utils/auth-utils";
-import { makeUrl } from "./lib/utils/url";
+import { isJwtExpired } from "./utils/jwt";
+import { refreshToken } from "./utils/auth-utils";
+import { makeUrl } from "./utils/url";
 
 const options = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
+    Google,
   ],
   session: {
     strategy: "jwt",
