@@ -11,6 +11,8 @@ class CourseSerializer(ModelSerializer):
             "instructor",
             "created_at",
             "category",
+            'difficulty',
+            "estimated_duration",
             "price",
             "status",
             
@@ -22,6 +24,8 @@ class CourseSerializer(ModelSerializer):
             title=validated_data["title"],
             description=validated_data["description"],
             instructor=validated_data["instructor"],
+            difficulty=validated_data["difficulty"],
+            estimated_duration=validated_data["estimated_duration"],
             category=validated_data["category"],
             price=validated_data["price"],
 

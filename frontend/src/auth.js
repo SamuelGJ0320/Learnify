@@ -21,16 +21,7 @@ const options = {
         const { access_token, id_token } = account;
 
         try {
-          console.log("trying to login");
-          console.log(
-            "URL",
-            makeUrl(
-              process.env.BACKEND_API_BASE || "http://127.0.0.1:8000/api",
-              "social",
-              "login",
-              "google"
-            )
-          );
+         
           const response = await axios.post(
             makeUrl(
               process.env.BACKEND_API_BASE || "http://127.0.0.1:8000/api",
@@ -44,12 +35,9 @@ const options = {
             }
           );
 
-          const accessToken = response.data.access_token;
-          const refreshToken = response.data.refresh_token;
-          console.log(user);
-          user.accessToken = accessToken;
-          user.refreshToken = refreshToken;
-
+          user.accessToken = response.data.key;
+          user.refreshToken = response.data.key;
+          
           return true;
         } catch (error) {
           console.log("error", error);
