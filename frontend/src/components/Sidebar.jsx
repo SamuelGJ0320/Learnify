@@ -4,13 +4,18 @@ import { BiWindows } from "react-icons/bi";
 import { TiHome } from "react-icons/ti";
 import { FaUser } from "react-icons/fa";
 import { IoCart } from "react-icons/io5";
+import { useClickOutside } from '@/hooks/useClickOutside';
+import { useRef } from 'react';
 import Link from 'next/link';
 
 function Sidebar({close}) {
-    
+
+    const ref = useRef(null);
+    useClickOutside(ref, () => close());
+
 
     return (
-      <div className="absolute right-0 h-screen w-1/5 bg-black z-30 px-12 py-6">
+      <div className="absolute right-0 h-screen w-1/5 bg-black z-30 px-12 py-6" ref={ref}>
         <div className="flex w-full justify-end">
           <IoMdClose onClick={close} />
         </div>
