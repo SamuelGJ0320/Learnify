@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from auth_users.models import User
+from auth_users.models import User, Avg
 
 class Course(models.Model):
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
@@ -15,6 +15,13 @@ class Course(models.Model):
     
     class Meta:
         verbose_name = "Course"
+    
+    @property
+    def rating_avg(self):
+        return self.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+    
+    
+        
 
     def __str__(self):
         return f"{self.title} - {self.instructor}"
