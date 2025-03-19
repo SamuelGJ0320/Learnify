@@ -15,7 +15,7 @@ class CourseSerializer(ModelSerializer):
             "estimated_duration",
             "price",
             "status",
-            
+            "rating_avg",
         ]
 
     def create(self, validated_data):
@@ -28,7 +28,7 @@ class CourseSerializer(ModelSerializer):
             estimated_duration=validated_data["estimated_duration"],
             category=validated_data["category"],
             price=validated_data["price"],
-
+            rating_avg=validated_data["rating_avg"],
         )
         return course
     
