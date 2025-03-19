@@ -13,7 +13,9 @@ import {
     CardTitle,
   } from "@/components/ui/Card";
 
-function ReviewCard({image, review, author}) {
+
+function ReviewCard({image, rating_avg, author}) {
+
 
 
 

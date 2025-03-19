@@ -5,24 +5,31 @@ import { Input } from "@/components/ui/Input"
 import { Search as SearchIcon } from '@geist-ui/icons';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 
 function Search({ children, className, ...props }) {
 
-  const router = useRouter()
+  const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState('')
+  const router = useRouter();
+  const [search, setSearch] = useState(searchParams?.get("search") || "");
+
   
+
   const handleSearch = (e) => {
-    e.preventDefault()
-    router.replace('courses' + (search ? `?search=${search}` : ''))
-  }
+    e.preventDefault();
+    router.push("/courses" + (search ? `?search=${search}` : ""));
+  };
+
+  // gather the current search query
+  
 
   return (
     <form onSubmit={handleSearch} className="relative flex items-center">
       <Input
         type="search"
-        className={` focus-visible:ring-0 transition-all duration-300 ${className}`}
+        className={`font-semibold focus-visible:ring-0 transition-all duration-300 ${className}`}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
 

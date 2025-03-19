@@ -7,11 +7,17 @@ import ReviewStars from "../../../components/Courses/ReviewStars";
 import CourseDetails from "../../../components/Courses/CourseDetails";
 import BackgroundBlur from "@/components/BackgroundBlur";
 import { Button } from "@/components/ui/Button";
+import axios from "axios";
 
 async function CoursePage({ params }) {
   const { courseId } = await params;
 
-  const course = courses.find((course) => course.id === parseInt(courseId));
+  const course = await axios.get(`http://127.0.0.1:8000/courses/${courseId}/`)
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error("Error fetching course", error);
+      return [];
+    });
 
   return (
     <div className="flex flex-col w-full items-center justify-start page-wrapper">
@@ -23,10 +29,10 @@ async function CoursePage({ params }) {
         </Card>
         <div className="flex flex-col  w-2/5 gap-8 justify-between">
           <div className="flex flex-col gap-4 justify-start ">
-            <h1 className="text-2xl">Curso de python y ciencia de datos</h1>
+            <h1 className="text-2xl">{course?.title}</h1>
             <div className="flex gap-2">
-              <ReviewStars review={course.rating} />
-              <span>{course.rating}</span>
+              <ReviewStars review={course.rating_avg} />
+              <span>{course.rating_avg}</span>
             </div>
             <CourseDetails course={course} />
           </div>

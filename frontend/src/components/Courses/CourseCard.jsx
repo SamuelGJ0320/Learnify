@@ -16,9 +16,9 @@ import CourseDetails from "./CourseDetails";
 
 function CourseCard({ course }) {
   const ratingRangeClass =
-    course.rating > 4
+    course?.rating_avg > 4
       ? "from-rating-high-start to-rating-high-end"
-      : course.rating > 3
+      : course?.rating_avg > 3
       ? "from-rating-mid-start to-rating-mid-end"
       : "from-rating-low-start to-rating-low-end";
 
@@ -71,7 +71,7 @@ function CourseCard({ course }) {
                   className={`bg-linear-to-b  ${ratingRangeClass} text-xl`}
                   size={"xl"}
                 >
-                  {course.rating || 0}
+                  {course.rating_avg || 0}
                 </Button>
               </BackgroundBlur>
             </div>
