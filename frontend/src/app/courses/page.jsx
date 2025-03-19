@@ -1,13 +1,29 @@
-import Background from "@/components/BackgroundImage";
-import bg from "@public/home-background.svg";
-import React from "react";
-import { courses } from "@/tests/courses";
-import CourseCard from "./components/CourseCard";
-import Link from "next/link";
 
-function Courses() {
+import React from "react";
+import CourseCard from "./components/CourseCard";
+
+
+
+async function Courses({searchParams}) {
+
+const { search } = await searchParams;
+
+  const url = new URL("http://127.0.0.1:8000/courses/");
+
+  if (search) {
+    url.searchParams.append("search", search);
+  }
+
+  const data = await fetch(url);
+  
+  const courses = await data.json();
+
+
+
+
+
   return (
-    <div className="flex flex-col w-full items-center justify-center page-wrapper">
+    <div className="flex flex-col w-full items-center justify-start page-wrapper">
       {courses.map((course, index) => (
         <CourseCard key={index} course={course} />
       ))}

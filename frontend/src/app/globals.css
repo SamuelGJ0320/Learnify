@@ -131,4 +131,7 @@
   .page-wrapper {
     @apply  min-h-screen p-8 pt-0 pb-20 gap-16 sm:p-20
   }
+
+
+
 }

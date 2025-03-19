@@ -17,6 +17,8 @@ class CourseSerializer(ModelSerializer):
             "status",
             "rating_avg",
         ]
+        
+
 
     def create(self, validated_data):
         """Create a new course"""   
@@ -31,4 +33,6 @@ class CourseSerializer(ModelSerializer):
             rating_avg=validated_data["rating_avg"],
         )
         return course
+    
+
     

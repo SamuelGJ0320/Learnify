@@ -18,6 +18,7 @@ const options = {
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account.provider === "google") {
+    
         const { access_token, id_token } = account;
 
         try {
@@ -36,11 +37,11 @@ const options = {
           );
 
           user.accessToken = response.data.key;
-          user.refreshToken = response.data.key;
-          
+        
           return true;
         } catch (error) {
           console.log("error", error);
+          console.log(JSON.stringify(error));
           return false;
         }
       }
@@ -48,7 +49,6 @@ const options = {
     },
 
     async jwt({ token = {}, user }) {
-      console.log("jwt -> ", token, user);
       // Initial sign in
 
       if (user) {
