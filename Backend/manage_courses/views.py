@@ -17,3 +17,8 @@ class CourseListCreateView(generics.ListCreateAPIView):
         'category', 
         'difficulty', 
     ]
+    
+class CourseDetailView(generics.RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [AllowAny]

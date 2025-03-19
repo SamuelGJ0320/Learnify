@@ -1,7 +1,11 @@
 from rest_framework.serializers import ModelSerializer
+from auth_users.serializers import UserSerializer
 from .models import Course
 
 class CourseSerializer(ModelSerializer):
+    
+    instructor = UserSerializer(read_only=True)
+    
     class Meta:
         model = Course
         fields = [
