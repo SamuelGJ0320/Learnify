@@ -68,7 +68,7 @@ function CourseOverview({ course, className, isCart }) {
         <Button className={"w-fit"}>{course.price} USD</Button>
 
         {!isCartPath &&
-          (isCourseInCart ? (
+          (isInCart(course.id) ? (
             <Button
               variant={"destructive"}
               className={"w-fit"}
