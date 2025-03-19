@@ -13,7 +13,7 @@ import {
     CardTitle,
   } from "@/components/ui/Card";
 
-function ReviewCard() {
+function ReviewCard({image, review, author}) {
 
 
 
@@ -21,16 +21,16 @@ function ReviewCard() {
         <Card className="bg-black text-white p-6 rounded-xl border  max-w-2/5">
           <CardHeader className="flex items-center gap-4">
             <Avatar.Root className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
-              <Avatar.Image src="https://github.com/shadcn.png" alt="user" className="w-full h-full rounded-full" />
+              <Avatar.Image src={image} alt="user" className="w-full h-full rounded-full" />
               <Avatar.Fallback className="text-white text-lg">SD</Avatar.Fallback>
             </Avatar.Root>
             <div>
-              <h3 className="text-lg  font-semibold">pancito</h3>
+              <h3 className="text-lg  font-semibold">{author}</h3>
               <p className="text-muted-foreground text-md">elbread@gmail.com</p>
             </div>
             <div className="ml-auto flex items-center gap-1 text-white">
-              <ReviewStars review={4.8} />
-              <span className="text-white text-md">4.8</span>
+              <ReviewStars review={review} />
+              <span className="text-white text-md">{review}</span>
             </div>
           </CardHeader>
           <CardContent>
