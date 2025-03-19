@@ -9,9 +9,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { logout } from "@/actions/auth";
 import { Button } from "./ui/Button";
-import { useRouter } from "next/navigation";
 import CreateNewCourse from "./Courses/CreateNewCourse";
-import { useSession } from "next-auth/react";
 
 function Sidebar({ close, session, update }) {
 

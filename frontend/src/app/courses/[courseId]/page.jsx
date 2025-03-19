@@ -14,7 +14,7 @@ async function CoursePage({ params }) {
 
   return (
     <div className="flex flex-col w-full items-center justify-start page-wrapper">
-      <CourseOverview course={course} />
+      <CourseOverview course={course}  />
     </div>
   );
 }

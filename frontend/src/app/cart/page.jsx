@@ -7,10 +7,11 @@ import { MdShoppingCart } from "react-icons/md";
 import CourseOverview from "@/components/Courses/CourseOverview";
 import OrderSummary from "./components/OrderSummary";
 
+
+
 export default function CartPage() {
   const { cart, removeFromCart, totalPrice, clearCart } = useCart();
 
-  console.log(cart)
 
 
   if (cart.length === 0) {
@@ -32,11 +33,14 @@ export default function CartPage() {
     <div className="page-wrapper">
       <div className="flex flex-col lg:flex-row justify-around gap-8">
         <div className="w-full lg:w-2/3 flex flex-col gap-12">
+  
+
           {cart.map((course) => {
-       
-           return  <CourseOverview key={course.id} course={course} />;
-   
+            
+            return  <CourseOverview  key={course.id} course={course} />;
+            
           })}
+         
 
           <div className="mt-8 pt-6 border-t">
             <div className="flex justify-between items-center mb-6">
