@@ -3,8 +3,8 @@ import { courses } from "@/tests/courses";
 import img from "@public/card-test.png";
 import { Card, CardDescription } from "@/components/ui/Card";
 import BackgroundImage from "@components/BackgroundImage";
-import ReviewStars from "../components/ReviewStars";
-import CourseDetails from "../components/CourseDetails";
+import ReviewStars from "../../../components/Courses/ReviewStars";
+import CourseDetails from "../../../components/Courses/CourseDetails";
 import BackgroundBlur from "@/components/BackgroundBlur";
 import { Button } from "@/components/ui/Button";
 
