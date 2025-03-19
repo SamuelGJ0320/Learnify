@@ -3,8 +3,8 @@ import { courses } from "@/tests/courses";
 import img from "@public/card-test.png";
 import { Card, CardDescription } from "@/components/ui/Card";
 import BackgroundImage from "@components/BackgroundImage";
-import ReviewStars from "../components/ReviewStars";
-import CourseDetails from "../components/CourseDetails";
+import ReviewStars from "../../../components/Courses/ReviewStars";
+import CourseDetails from "../../../components/Courses/CourseDetails";
 import BackgroundBlur from "@/components/BackgroundBlur";
 import { Button } from "@/components/ui/Button";
 
@@ -26,12 +26,12 @@ async function CoursePage({ params }) {
             <h1 className="text-2xl">Curso de python y ciencia de datos</h1>
             <div className="flex gap-2">
               <ReviewStars review={course.rating} />
-              <span>{course.rating.toFixed(1)}</span>
+              <span>{course.rating}</span>
             </div>
             <CourseDetails course={course} />
           </div>
           <CardDescription>{course.description}</CardDescription>
-          <Button className={"w-fit"}>{course.price.toFixed(2)} USD</Button>
+          <Button className={"w-fit"}>{course.price} USD</Button>
           <div className="flex relative">
             <BackgroundBlur size={"md"} className={"w-full"}>
               <Button

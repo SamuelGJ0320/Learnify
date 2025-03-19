@@ -13,12 +13,8 @@ import { Button } from "@/components/ui/Button";
 import BackgroundBlur from "@/components/BackgroundBlur";
 import Link from "next/link";
 import CourseDetails from "./CourseDetails";
-import { auth } from "@/auth";
 
-async function CourseCard({ course }) {
-
-
-
+function CourseCard({ course }) {
   const ratingRangeClass =
     course.rating > 4
       ? "from-rating-high-start to-rating-high-end"
@@ -66,7 +62,7 @@ async function CourseCard({ course }) {
           >
             <CourseDetails course={course} />
             <div className="flex gap-4">
-              <Button size={"xl"}>{course?.price} USD</Button>
+              <Button size={"xl"}>{course.price} USD</Button>
               <BackgroundBlur
                 color={`bg-linear-to-b  ${ratingRangeClass}`}
                 size="lg"
@@ -75,7 +71,7 @@ async function CourseCard({ course }) {
                   className={`bg-linear-to-b  ${ratingRangeClass} text-xl`}
                   size={"xl"}
                 >
-                  {course.rating?.toFixed(1) || 0}
+                  {course.rating || 0}
                 </Button>
               </BackgroundBlur>
             </div>

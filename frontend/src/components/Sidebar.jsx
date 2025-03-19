@@ -10,13 +10,13 @@ import Link from "next/link";
 import { logout } from "@/actions/auth";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
+import CreateNewCourse from "./Courses/CreateNewCourse";
+import { useSession } from "next-auth/react";
 
 function Sidebar({ close, session, update }) {
 
-  const router = useRouter();
 
   const ref = useRef(null);
-
 
   useClickOutside(ref, () => close());
 
@@ -55,22 +55,27 @@ function Sidebar({ close, session, update }) {
               <IoCart className="size-6" />
               <p className="text-xl">Cart</p>
             </Link>
+
+            <div className="py-10 "> {session?.user && (
+              <Button
+                onClick={handleLogOut}
+                className={
+                  "relative inline-flex items-center justify-center p-0  overflow-hidden text-sm font-medium text-gray-900  group bg-gradient-to-br "
+                }
+              >
+                <span className="relative px-5 py-2.5 text-white ">
+                  Log out
+                </span>
+              </Button>
+            )}
+            </div>
           </div>
+
         </div>
       </div>
       <div>
-        {session?.user && (
-          <Button
-            onClick={handleLogOut}
-            className={
-              "relative inline-flex items-center justify-center p-0  overflow-hidden text-sm font-medium text-gray-900  group bg-gradient-to-br from-red-950 to-red-600 group-hover:from-red-950 group-hover:to-red-600 hover:text-white dark:text-white focus:outline-none "
-            }
-          >
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black   group-hover:bg-transparent group-hover:dark:bg-transparent">
-              Log out
-            </span>
-          </Button>
-        )}
+        <CreateNewCourse image="/avatar.jpg" author={session.user} />
+
       </div>
     </div>
   );
