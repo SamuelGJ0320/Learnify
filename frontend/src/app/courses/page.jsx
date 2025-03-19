@@ -1,5 +1,5 @@
 import React from "react";
-import CourseCard from "./components/CourseCard";
+import CourseCard from "@components/Courses/CourseCard";
 
 async function Courses({ searchParams }) {
   const { search } = await searchParams;

@@ -62,7 +62,7 @@ function CourseCard({ course }) {
           >
             <CourseDetails course={course} />
             <div className="flex gap-4">
-              <Button size={"xl"}>{course.price.toFixed(2)} USD</Button>
+              <Button size={"xl"}>{course.price} USD</Button>
               <BackgroundBlur
                 color={`bg-linear-to-b  ${ratingRangeClass}`}
                 size="lg"
@@ -71,7 +71,7 @@ function CourseCard({ course }) {
                   className={`bg-linear-to-b  ${ratingRangeClass} text-xl`}
                   size={"xl"}
                 >
-                  {course.rating.toFixed(1)}
+                  {course.rating || 0}
                 </Button>
               </BackgroundBlur>
             </div>

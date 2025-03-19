@@ -11,13 +11,12 @@ import { logout } from "@/actions/auth";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
 import CreateNewCourse from "./Courses/CreateNewCourse";
+import { useSession } from "next-auth/react";
 
 function Sidebar({ close, session, update }) {
 
-  const router = useRouter();
 
   const ref = useRef(null);
-
 
   useClickOutside(ref, () => close());
 
@@ -75,7 +74,7 @@ function Sidebar({ close, session, update }) {
         </div>
       </div>
       <div>
-        <CreateNewCourse image="/avatar.jpg" author="John Doe" />
+        <CreateNewCourse image="/avatar.jpg" author={session.user} />
 
       </div>
     </div>
