@@ -10,7 +10,7 @@ import Search from "./Search";
 import BackgroundBlur from "./BackgroundBlur";
 import { useSession } from "next-auth/react";
 import Sidebar from "./Sidebar";
-
+import CartIcon from "./Navigation/CartIcon";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -79,15 +79,30 @@ const Navbar = () => {
                   </li>
                 </>
               ) : (
+                <>
+                <li>
+              
+            
+                    
+                      <CartIcon />
+                
+              
+                </li>
+                <li>
+                  <Button>
+                    Hello, {session.user.name}
+                  </Button>
+                </li>
                 <li>
                   <Button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={" text-md font-normal"}
+                    className={"text-md font-normal"}
                     variant={"outline"}
-                  >
+                    >
                     <Menu />
                   </Button>
                 </li>
+                    </>
               )}
             </ul>
           )}

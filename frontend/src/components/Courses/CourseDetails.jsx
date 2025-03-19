@@ -8,7 +8,7 @@ function CourseDetails({course}) {
     const { difficulty, estimated_duration, instructor } = course;
     const {username} = instructor;
 
-    const courseDetails = [difficulty, estimated_duration, username];
+    const courseDetails = [difficulty, estimated_duration + ' hours', username];
 
 
   return (

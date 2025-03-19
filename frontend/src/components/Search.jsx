@@ -35,7 +35,7 @@ function Search({ children, className, ...props }) {
 
         {...props}
       />
-      <SearchIcon type='submit' className="absolute right-4" />
+      <SearchIcon onClick={handleSearch} type='submit' className="cursor-pointer absolute right-4" />
     </form>
   );
 }

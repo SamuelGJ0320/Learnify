@@ -1,11 +1,10 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ValidationError
 from auth_users.serializers import UserSerializer
 from .models import Course
 
 class CourseSerializer(ModelSerializer):
-    
     instructor = UserSerializer(read_only=True)
-    
+
     class Meta:
         model = Course
         fields = [
@@ -21,22 +20,24 @@ class CourseSerializer(ModelSerializer):
             "status",
             "rating_avg",
         ]
-        
-
 
     def create(self, validated_data):
-        """Create a new course"""   
+        """Create a new course"""
+        request = self.context.get('request', None)
+        print(request)
+        if request and hasattr(request, 'user'):
+            instructor = request.user
+        else:
+            raise ValidationError("Instructor information is missing.")
+        
         course = Course.objects.create(
             title=validated_data["title"],
             description=validated_data["description"],
-            instructor=validated_data["instructor"],
+            instructor=instructor,
             difficulty=validated_data["difficulty"],
             estimated_duration=validated_data["estimated_duration"],
             category=validated_data["category"],
             price=validated_data["price"],
-            rating_avg=validated_data["rating_avg"],
+            status=validated_data["status"],
         )
         return course
-    
-
-    

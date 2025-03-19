@@ -1,3 +1,5 @@
+"use client";
+import { jsxDEV } from "react/jsx-dev-runtime";
 import React from "react";
 import {
   Card,
@@ -8,13 +10,19 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import Image from "next/image";
-import img from "@public/card-test.png";
-import { Button } from "@/components/ui/Button";
-import BackgroundBlur from "@/components/BackgroundBlur";
+import cardImage from "@public/card-test.png";
+import { Button } from "@components/ui/Button";
+import BackgroundBlur from "@components/BackgroundBlur";
 import Link from "next/link";
-import CourseDetails from "./CourseDetails";
+import CourseDetails from "@components/Courses/CourseDetails";
+import { useCart } from "@/providers/CartProvider";
+import {
+  MdOutlineShoppingCart,
+  MdOutlineShoppingCartCheckout,
+} from "react-icons/md";
 
 function CourseCard({ course }) {
+
   const ratingRangeClass =
     course?.rating_avg > 4
       ? "from-rating-high-start to-rating-high-end"
@@ -22,26 +30,25 @@ function CourseCard({ course }) {
       ? "from-rating-mid-start to-rating-mid-end"
       : "from-rating-low-start to-rating-low-end";
 
+
+
   return (
     <Link
-      className="w-full max-w-7xl content-center "
+      className="w-full max-w-7xl content-center"
       href={`/courses/${course.id}`}
     >
-      <Card
-        className={
-          "flex-row justify-start gap-0  dark:bg-transparent p-0 overflow-clip border-2 bg-white h-72"
-        }
-      >
+      <Card className="flex-row justify-start gap-0 dark:bg-transparent p-0 overflow-clip border-2 bg-white h-72 relative">
+       
+
+        {/* Existing Card Content */}
         <div className="relative w-2/3 h-">
           <Image
             alt="Grid"
-            src={img}
+            src={cardImage}
             quality={100}
             fill
             sizes="100vw"
-            style={{
-              objectFit: "cover",
-            }}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="w-full flex flex-col justify-between p-6">
