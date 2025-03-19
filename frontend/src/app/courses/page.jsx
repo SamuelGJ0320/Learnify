@@ -2,7 +2,7 @@ import Background from "@/components/BackgroundImage";
 import bg from "@public/home-background.svg";
 import React from "react";
 import { courses } from "@/tests/courses";
-import CourseCard from "./components/CourseCard";
+import CourseCard from "../../components/Courses/CourseCard";
 import Link from "next/link";
 
 function Courses() {
