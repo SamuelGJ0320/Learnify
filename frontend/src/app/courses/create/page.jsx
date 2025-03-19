@@ -17,10 +17,12 @@ import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
+import { useRouter } from "next/navigation";
 
 function CreateCoursePage() {
 
   const { data: session } = useSession();
+  const router = useRouter();
 
 
 
@@ -55,7 +57,14 @@ function CreateCoursePage() {
         },
       });
 
+      console.log(response);
+
+      const courseData = response.data;
+
       setFormState(initialFormState);
+
+      router.push(`/courses/${courseData.id}`);
+      
     } catch (error) {
       console.error(error);
     }
@@ -125,13 +134,14 @@ function CreateCoursePage() {
           className="w-full font-thin text-md flex flex-col items-start gap-2"
           htmlFor="duration"
         >
-          Estimated Duration
+          Estimated Duration ( In Hours )
+          {/* estimated duration cant be minor than 1 */}
           <Input
             id="estimated_duration"
             type="number"
             className={" dark:bg-zinc-950 rounded-sm"}
             placeholder="Enter course duration"
-            value={formState.estimated_duration}
+            value={Math.max(0, formState.estimated_duration) || ""}
             onChange={handleInputChange}
           />
         </Label>
