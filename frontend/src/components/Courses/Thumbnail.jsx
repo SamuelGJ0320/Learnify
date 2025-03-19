@@ -6,13 +6,13 @@ import {
 
 import * as Avatar from '@radix-ui/react-avatar';
 
-function Thumbnail({ image, title, author, rating }) {
+function Thumbnail({ image, title, author ,review}) {
     return (
     <Card className="bg-black text-white p-4 rounded-lg max-w-sm">
       <div className="relative w-full h-60 rounded-lg overflow-hidden">
         <img src={image} alt={title} className="w-full h-full object-cover" />
         <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 px-2 py-1 rounded text-sm flex items-center gap-1">
-          <span>{rating}</span>
+          <span>{review}</span>
           <span>★</span>
         </div>
       </div>
