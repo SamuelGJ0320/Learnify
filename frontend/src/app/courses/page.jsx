@@ -13,7 +13,12 @@ const { search } = await searchParams;
   }
 
   const courses = await axios.get(url.toString())
-  .then((res) => res.data)
+  .then((res) => {
+    const data = res.data;
+    const courses = data.results;
+
+    return courses
+  })
   .catch((error) => {
     console.error("Error fetching courses", error);
     return [];
