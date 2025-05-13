@@ -49,3 +49,21 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.module}"
+    
+class InteractionReview(models.Model):
+    course = models.ForeignKey(
+        Course, 
+        on_delete=models.CASCADE, 
+        related_name='interaction_reviews'  # Nombre único para la relación con Course
+    )
+    user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='course_reviews'  # Nombre único para la relación con User
+    )
+    rating = models.PositiveIntegerField()
+    review_text = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review for {self.course.title} by {self.user.username}"
